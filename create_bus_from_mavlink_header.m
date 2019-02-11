@@ -21,7 +21,7 @@ datatypes = readtable('datatype_map.csv','ReadVariableNames',1);
 
 % Skip lines till "MAVPACKED"
 lin = fgetl(fid);
-while ~contains(lin,'MAVPACKED')
+while isempty(strfind(lin,'MAVPACKED'))
     lin = fgetl(fid);
 end
 
@@ -33,7 +33,7 @@ bus_orig_dtypes = struct;
 % Now you have fields until you hit "}"
 nfields = 0;
 lin = fgetl(fid);
-while ~contains(lin,'}')
+while isempty(strfind(lin,'}'))
     data = regexp(lin,'\;','split');
     description = strtrim(erase(data{2},{'/*<','*/'}));
     data = textscan(data{1},'%s');

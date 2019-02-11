@@ -135,15 +135,15 @@ fprintf(fout,'%s\n','*/');
 
 % Skip header from template file
 lin = fgetl(fin);
-while ~contains(lin,'<BEGIN>')
+while isempty(strfind(lin,'<BEGIN>'))
     lin = fgetl(fin);
 end
 lin = fgetl(fin);
 
 % Start writing editable lines
-while ~contains(lin,'<END>')
+while isempty(strfind(lin,'<END>'))
     
-    if contains(lin,'<EDIT>')
+    if ~isempty(strfind(lin,'<EDIT>'))
         idx = regexp(lin,'<(\d*)>','match');
         idx = idx{1};
         idx = str2double(erase(idx,{'<','>'}));
