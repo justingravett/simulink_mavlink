@@ -146,7 +146,9 @@ while isempty(strfind(lin,'<END>'))
     if ~isempty(strfind(lin,'<EDIT>'))
         idx = regexp(lin,'<(\d*)>','match');
         idx = idx{1};
-        idx = str2double(erase(idx,{'<','>'}));
+        idx = strrep(idx, '<', '');
+        idx = strrep(idx, '>', '');
+        idx = str2double(idx);
         
         switch idx
             case 1

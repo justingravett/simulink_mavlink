@@ -49,7 +49,8 @@ addpath(fullfile(pathname,'buses'));
 %% Prepare header file
 
 fprintf('Creating the s-function header file... ');
-mavlink_msg_name = erase(simulink_bus_name,{'mavlink_','_t'});
+mavlink_msg_name = strrep(simulink_bus_name, 'mavlink_', '');
+mavlink_msg_name = strrep(mavlink_msg_name, '_t', '');
 fileName = fullfile(pathname,'include',['sfun_mavlink_msg_' mavlink_msg_name '.h']);
 fid = fopen(fileName,'w');
 

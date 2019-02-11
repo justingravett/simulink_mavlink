@@ -27,7 +27,9 @@ end
 
 % Next line is "typedef struct" - extract bus name from this
 lin = fgetl(fid);
-bus_name = strtrim(erase(lin,{'typedef struct __','{'}));
+bus_name = strrep(lin,'typedef struct __','');
+bus_name = strrep(bus_name,'{','');
+bus_name = strtrim(bus_name);
 bus_orig_dtypes = struct;
 
 % Now you have fields until you hit "}"
@@ -35,7 +37,9 @@ nfields = 0;
 lin = fgetl(fid);
 while isempty(strfind(lin,'}'))
     data = regexp(lin,'\;','split');
-    description = strtrim(erase(data{2},{'/*<','*/'}));
+    description = strrep(data{2},'/*<','');
+    description = strrep(description,'*/','');
+    description = strtrim(description);
     data = textscan(data{1},'%s');
     data = data{1};
     datatype = data{1};
